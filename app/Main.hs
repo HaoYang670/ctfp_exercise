@@ -1,8 +1,12 @@
 module Main where
 
-import qualified MyLib (someFunc)
+import Chapter1 (test_composition_identity)
 
 main :: IO ()
 main = do
-  putStrLn "Hello, Haskell!"
-  MyLib.someFunc
+  doTestCompositionIdentity
+
+doTestCompositionIdentity :: IO ()
+doTestCompositionIdentity = do
+  putStrLn "test composition function respects identity:"
+  print (test_composition_identity (+ 3) 10)
