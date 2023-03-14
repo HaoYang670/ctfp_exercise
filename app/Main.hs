@@ -3,11 +3,13 @@ module Main where
 
 import Chapter1 (test_composition_identity)
 import Chapter2(testMemoize)
+import Chapter3(testAddMod3Identity, testAddMod3Assoc)
 
 main :: IO ()
 main = do
   doTestCompositionIdentity
   doTestMemoize
+  doTestAddMod3
 
 
 doTestCompositionIdentity :: IO ()
@@ -30,3 +32,10 @@ doTestMemoize = do
     fib 0 = 0
     fib 1 = 1
     fib n = fib(n-1) + fib(n-2)
+
+doTestAddMod3 :: IO ()
+doTestAddMod3 = do
+  result <- testAddMod3Identity
+  putStrLn (if result then "PASS" else "FAIL")
+  result <- testAddMod3Assoc
+  putStrLn (if result then "PASS" else "FAIL")
