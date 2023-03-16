@@ -24,7 +24,7 @@ extra-source-files:
     README.md
 
 library
-    exposed-modules: Chapter1, Chapter2, Chapter3
+    exposed-modules: Chapter1, Chapter2, Chapter3, Chapter4
 
     -- Modules included in this library but not exported.
     -- other-modules:

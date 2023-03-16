@@ -4,12 +4,14 @@ module Main where
 import Chapter1 (test_composition_identity)
 import Chapter2(testMemoize)
 import Chapter3(testAddMod3Identity, testAddMod3Assoc)
+import Chapter4(testSafeRootReciprocal)
 
 main :: IO ()
 main = do
   doTestCompositionIdentity
   doTestMemoize
   doTestAddMod3
+  doTestSafeRootReciprocal
 
 
 doTestCompositionIdentity :: IO ()
@@ -36,6 +38,11 @@ doTestMemoize = do
 doTestAddMod3 :: IO ()
 doTestAddMod3 = do
   result <- testAddMod3Identity
-  putStrLn (if result then "PASS" else "FAIL")
+  putStrLn (if result then "  PASS" else "  FAIL")
   result <- testAddMod3Assoc
-  putStrLn (if result then "PASS" else "FAIL")
+  putStrLn (if result then "  PASS" else "  FAIL")
+
+doTestSafeRootReciprocal :: IO ()
+doTestSafeRootReciprocal = do
+  result <- testSafeRootReciprocal
+  putStrLn (if result then "  Pass" else "  FAIL")
