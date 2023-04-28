@@ -97,6 +97,18 @@ Arguments BiComp {bf fu gu a b}.
   rewrite bimap_composition. eauto.
 Defined.
 
+Class Profunctor (P: Type -> Type -> Type) := {
+  dimap {A B C D: Type} : (A -> B) -> (C -> D) -> (P B C) -> P A D;
+  lamp {A B C: Type} : (A -> B) -> (P B C) -> P A C;
+  rmap {A B C: Type} : (B -> C) -> (P A B) -> P A C;
+  dimap_id: forall A C,
+    dimap (id (A := A)) (id (A := C)) = id;
+  (* the composition law doesn't satisfy *)
+}.
 
-
-
+#[export] #[refine] Instance reader_Profunctor : Profunctor reader := {|
+  dimap A B C D ab cd bc := compose cd (compose bc ab);
+  lamp A B C ab bc := compose bc ab;
+  rmap A B C bc ab := compose bc ab
+|}.
+- intros. apply functional_extensionality. eauto.
