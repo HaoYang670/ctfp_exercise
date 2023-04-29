@@ -112,3 +112,33 @@ Class Profunctor (P: Type -> Type -> Type) := {
   rmap A B C bc ab := compose bc ab
 |}.
 - intros. apply functional_extensionality. eauto.
+Defined.
+
+(* Challenge 3 *)
+Inductive prelist (A B: Type) : Type :=
+| P_nil: prelist A B
+| P_cons: A -> B -> prelist A B.
+
+Arguments P_nil {A B}.
+Arguments P_cons {A B}.
+
+#[export] #[refine] Instance prelist_Bifunctor : Bifunctor prelist := {|
+  first A A' B f (p: prelist A B) := match p with
+  | P_nil => P_nil
+  | P_cons a b => P_cons (f a) b
+  end;
+
+  second A B B' g (p: prelist A B) := match p with
+  | P_nil => P_nil
+  | P_cons a b => P_cons a (g b)
+  end;
+
+  bimap A A' B B' f g (p: prelist A B) := match p with
+  | P_nil => P_nil
+  | P_cons a b => P_cons (f a) (g b)
+  end;
+|}.
+- intros. apply functional_extensionality. intros. destruct x; eauto.
+- intros. apply functional_extensionality. intros. destruct x; eauto.
+Defined.
+(* Challenge 3 *)
